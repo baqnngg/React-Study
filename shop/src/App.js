@@ -9,6 +9,7 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 function App() {
   let [shoes] = useState(data)
   let navigate = useNavigate();
+  
 
   return (
     <div className="Main">
@@ -35,7 +36,7 @@ function App() {
           </div>
           </>
         }></Route>
-        <Route path='/detail' element={<Detail shoes={shoes}/>}></Route>
+        <Route path='/detail/:id' element={<Detail shoes={shoes}/>}></Route>
         <Route path='*' element={<div>없는 페이지입니다<p></p>404</div>}></Route>
         <Route path='/about' element={<About/>}>
           <Route path='member' element={<div>멤버</div>}></Route>
