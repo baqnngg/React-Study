@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 
 let Box = styled.div`
     padding : 20px;
@@ -13,6 +14,20 @@ let YellowBtn = styled.button`
 `;
 
 function Detail (props) {
+    useEffect(() => {
+        console.log("안녕안녕");
+    });
+
+    let [count, setCount] = useState(0);
+
+    let [alert, setAlert] = useState(true)
+    useEffect(() => {
+        let timer = setTimeout(() => {setAlert(false)},2000)
+        return () => {
+            clearTimeout(timer);
+        }
+    }, [] )
+
     let {id} = useParams();
     let myItem = props.shoes.find((x)=> x.id==id);
     // let myItem = props.shoes.find(function(x){
@@ -33,8 +48,9 @@ function Detail (props) {
                 </div>
                 <div>
                     <Box>
-                        <YellowBtn bg='orange'>오렌지 버튼</YellowBtn>
+                        <YellowBtn bg='orange' onClick={() => {setCount(count+1)}}>오렌지 버튼</YellowBtn>
                         <YellowBtn bg='blue'>파란 버튼</YellowBtn>
+                        {alert == true ? <YellowBtn>2초후에 사라짐</YellowBtn> : null}
                     </Box>
                 </div>
             </div>
