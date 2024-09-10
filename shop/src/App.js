@@ -5,9 +5,10 @@ import data from './Routes/data.js'
 import Detail from './Routes/Detail.js';
 import { useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import axios from 'axios';
 
 function App() {
-  let [shoes] = useState(data)
+  let [shoes, setShoes] = useState(data)
   let navigate = useNavigate();
   
 
@@ -18,7 +19,14 @@ function App() {
           <Navbar.Brand href='#home'>ShoesShop</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={() => {navigate('/')}}>HOME</Nav.Link>
-            <Nav.Link onClick={() => {navigate('/detail')}}>Detail</Nav.Link>
+            <Nav.Link onClick={() => {navigate('/detail/0')}}>Detail</Nav.Link>
+            <Nav.Link onClick={() => {
+              axios.get('https://codingapple1.github.io/shop/data2.json').then((결과) =>{
+                let copy = [...shoes,...결과.data]
+                setShoes(copy)
+                console.log(copy)
+              }).catch(() => {console.log("가져오기 실패")});
+            }}>가져오기</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -29,9 +37,9 @@ function App() {
           <div className='main-bg'></div>
           <div className='container'>
             <div className='row'>
-              <Card shoes={shoes[0]} i={1}></Card>
-              <Card shoes={shoes[1]} i={2}></Card>
-              <Card shoes={shoes[2]} i={3}></Card>
+              {shoes.map((a,i) => {
+                return (<Card shoes={shoes[i]} i={i} key={i}></Card>)
+              })}
             </div>
           </div>
           </>
