@@ -22,8 +22,9 @@ let stock = createSlice({
 let cart = createSlice({
   name : 'cart',
   initialState : [
-    {id : 0, name : 'white and black', count : 2, defaultCount : 2},
-    {id : 2, name : 'Grey Yordan', count : 1, defaultCount : 1}
+    {id : 0, name : 'white and black', count : 0, defaultCount : 0},
+    {id : 1, name : 'red wine', count : 0, defaultCount : 0},
+    {id : 2, name : 'Grey Yordan', count : 0, defaultCount : 0}
   ],
   reducers :{
     addCount(state,action){
