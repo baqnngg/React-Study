@@ -3,16 +3,17 @@ import './App.css';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import data from './Routes/data.js'
 import Detail from './Routes/Detail.js';
+import Cart from './Routes/Cart.js';
 import { useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
 function App() {
   let [shoes, setShoes] = useState(data)
+  let [재고, 재고변경] = useState([10,11,12]);
   let navigate = useNavigate();
-  
 
-  return (
+  return (  
     <div className="Main">
       <Navbar bg='light' variant='light'>
         <Container>
@@ -54,6 +55,7 @@ function App() {
         <Route path='one' element={<p>첫 주문시 신발 1+1 이벤트</p>}></Route>
         <Route path='two' element={<p>생일 기념 쿠폰 발급받기</p>}></Route>
         </Route>
+        <Route path='/cart' element={<Cart/>} />
       </Routes>
     </div>
   );
