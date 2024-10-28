@@ -63,11 +63,21 @@ function Detail (props) {
     let [fade2, setFade2] = useState()
 
     useEffect(() => {
+        let 꺼낸거 = localStorage.getItem('watched')
+        꺼낸거 = JSON.parse(꺼낸거)
+        꺼낸거.push(myItem.id)
+
+        꺼낸거 = new Set(꺼낸거)
+        꺼낸거 = Array.from(꺼낸거)
+        localStorage.setItem('watched', JSON.stringify(꺼낸거))
+    }, [])
+
+    useEffect(() => {
         setTimeout(() => {setFade2('end')}, 100)
         return () => {
             setFade2('')
         }
-    },[])
+    }, [])
 
 
     return (

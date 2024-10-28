@@ -4,7 +4,7 @@ import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import data from './Routes/data.js'
 import Detail from './Routes/Detail.js';
 import Cart from './Routes/Cart.js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,6 +13,20 @@ function App() {
   let [재고, 재고변경] = useState([10,11,12]);
   let navigate = useNavigate();
 
+  // 누가 Detail 페이지에 접속하면
+  // 그 페이지에 보이는 상품 id를 가져와서
+  // localStorage에 watched 항목에 추가
+
+  // useEffect(() => {
+  //   localStorage.setItem("watched", JSON.stringify([]))
+  // }, [])
+
+  useEffect(() => {
+    if (!localStorage.getItem("watched")) {
+      localStorage.setItem("watched", JSON.stringify([]));
+    }
+  }, []);
+  
   return (  
     <div className="Main">
       <Navbar bg='light' variant='light'>
@@ -32,6 +46,8 @@ function App() {
         </Container>
       </Navbar>
 
+      <WatchedItem></WatchedItem>
+      
       <Routes>
         <Route path='/' element={
           <>
@@ -88,4 +104,25 @@ function Card(props){
     </div>
   )
 }
+
+function WatchedItem() {
+  let [watchedItems, setwatchedItems] = useState([]);
+
+  useEffect(() => {
+    let watched = JSON.parse(localStorage.getItem('watched')) || [];   // || [] 추가 된
+    setwatchedItems(watched);
+  }, []);
+
+  return (
+    <div>
+      <h4>최근 본 항목</h4>
+      <ul>
+        {watchedItems.map((id, index) => (
+          <li key={index}>상품 ID : {id}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default App;

@@ -9,6 +9,7 @@ function Cart() {
   // localStorage.removeItem('데이터 이름');  //삭제
 
   localStorage.setItem('obj', JSON.stringify({name:'kim'}));
+  console.log(localStorage)
   // let aaa = localStorage.getItem('obj')
   // console.log(aaa)
   // let b = JSON.parse(aaa)
